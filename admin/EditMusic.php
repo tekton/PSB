@@ -73,6 +73,17 @@ class EditMusic {
         $rtn_str .= '<input type = "submit" value = "New Music" />';
         
         $rtn_str .= "</form></div>";
+        
+        $rtn_str .= '<script>
+            $(function() {$("input[name=name],input[name=composers],input[name=link]").focus(function(){
+                    var inputText = $(this).val();
+                    if(inputText === "Name" || inputText === "Composers" || inputText === "Link"){
+                        $(this).select();
+                    }
+                });
+            });
+        </script>';
+        
         return $rtn_str;
     }
     

@@ -73,6 +73,17 @@ class EditMembers {
         $rtn_str .= '<input type = "submit" value = "New Member" />';
         
         $rtn_str .= "</form></div>";
+        
+        $rtn_str .= '<script>
+            $(function() {$("input[name=first_name],input[name=last_name],input[name=instrument],input[name=email]").focus(function(){
+                    var inputText = $(this).val();
+                    if(inputText === "First Name" || inputText === "Last Name" || inputText === "Instrument" || inputText === "EMail"){
+                        $(this).select();
+                    }
+                });
+            });
+        </script>';
+        
         return $rtn_str;
     }
     
@@ -114,19 +125,19 @@ class EditMembers {
     
     public function show_edit_form($member) {
         debug_object($member);
-        $rtn_str = "<div id=\"newMemberInput\"><form method='post' action='EditMembers.php?action=edit&id=$member->id'>";
+        $rtn_str = "<div id=\"newMemberInput\"><form method='post' action='EditMembers.php?action=edit&id=$member->id'><table>";
         
-        $rtn_str .= "<input type = \"text\" name = \"id\" value = \"$member->id\" readonly = \"readonly\" />";
-        $rtn_str .= "<input type = \"text\" name = \"first_name\" value = \"$member->first_name\" />";
-        $rtn_str .= "<input type = \"text\" name = \"last_name\" value = \"$member->last_name\" />";
-        $rtn_str .= "<input type = \"text\" name = \"instrument\" value = \"$member->instrument\" />";
+        $rtn_str .= "<tr><td>ID</td><td><input type = \"text\" name = \"id\" value = \"$member->id\" readonly = \"readonly\" /></td></tr>";
+        $rtn_str .= "<tr><td>First Name</td><td><input type = \"text\" name = \"first_name\" value = \"$member->first_name\" /></td></tr>";
+        $rtn_str .= "<tr><td>Last Name</td><td><input type = \"text\" name = \"last_name\" value = \"$member->last_name\" /></td></tr>";
+        $rtn_str .= "<tr><td>Position</td><td><input type = \"text\" name = \"instrument\" value = \"$member->instrument\" /></td></tr>";
         $checked = "";    
         if($member->isPrimary == "1") {
                 $checked = 'checked = "checked"';
             }
-        $rtn_str .= "Is Principal? <input type = \"checkbox\" name = \"isPrimary\" value = \"1\" $checked />";
-        $rtn_str .= "<input type = \"text\" name = \"email\" value = \"$member->email\" />";
-        $rtn_str .= "<input type = \"submit\" value = \"Edit Member\" />";
+        $rtn_str .= "<tr><td>Is Principal?</td><td><input type = \"checkbox\" name = \"isPrimary\" value = \"1\" $checked /></td></tr>";
+        $rtn_str .= "<tr><td>E-Mail</td><td><input type = \"text\" name = \"email\" value = \"$member->email\" /></td></tr>";
+        $rtn_str .= "<tr><td></td><td><input type = \"submit\" value = \"Edit Member\" /></td></tr></table>";
         
         $rtn_str .= "</form></div><a href='EditMembers.php?action=delete&id=$member->id'>Delete</a>";
         $rtn_str .= '<script>$(function() {$( "#left-nav" ).accordion("activate" , 1);});</script>';
