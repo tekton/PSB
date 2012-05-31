@@ -66,9 +66,9 @@ class EditMusic {
     public function newMusicInput() {
         $rtn_str = "<div id=\"newMusicInput\" class='ui-widget ui-widget-content ui-corner-all'><form method='post' action='EditMusic.php?action=new'>";
         
-        $rtn_str .= '<input type = "text" name = "name" value = "Name" />';
-        $rtn_str .= '<input type = "text" name = "composers" value = "Composers" />';
-        $rtn_str .= '<input type = "text" name = "link" value = "Link" />';
+        $rtn_str .= 'Piece: <input type = "text" name = "name" value = "Name" /> ';
+        $rtn_str .= 'Composers: <input type = "text" name = "composers" value = "Composers" /> ';
+        $rtn_str .= 'Link: <input type = "text" name = "link" value = "Link" /> ';
         $rtn_str .= 'In Folio? <input type = "checkbox" name = "inFolio" value = "1" />';
         $rtn_str .= '<input type = "submit" value = "New Music" />';
         

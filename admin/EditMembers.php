@@ -65,11 +65,11 @@ class EditMembers {
     public function newMemberInput() {
         $rtn_str = "<div id=\"newMemberInput\" class='ui-widget ui-widget-content ui-corner-all'><form method='post' action='EditMembers.php?action=new'>";
         
-        $rtn_str .= '<input type = "text" name = "first_name" value = "First Name" />';
-        $rtn_str .= '<input type = "text" name = "last_name" value = "Last Name" />';
-        $rtn_str .= '<input type = "text" name = "instrument" value = "Instrument" />';
+        $rtn_str .= 'First Name: <input type = "text" name = "first_name" value = "" /> ';
+        $rtn_str .= 'Last Name: <input type = "text" name = "last_name" value = "" /> ';
+        $rtn_str .= 'Instrument: <input type = "text" name = "instrument" value = "" /> ';
         $rtn_str .= 'Is Principal? <input type = "checkbox" name = "isPrimary" value = "1" />';
-        $rtn_str .= '<input type = "text" name = "email" value = "EMail" />';
+        $rtn_str .= 'E-Mail <input type = "text" name = "email" value = "" />';
         $rtn_str .= '<input type = "submit" value = "New Member" />';
         
         $rtn_str .= "</form></div>";
