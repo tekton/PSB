@@ -1,0 +1,195 @@
+body {
+	color: black;
+	background-color: #333;
+	text-align: center;
+	margin: 0px
+}
+
+#container {
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	margin: 0 auto;
+	width: 1000px;
+	/*border: 5px solid #aaa;
+	border-radius: 10px;*/
+}
+
+#title {
+	background: #006;
+	color: white;
+	text-align: center;
+	padding: 10px;
+	margin: 0px;
+	/*
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	*/	
+}
+
+#title a, #title a:visited {
+	color: white;
+	text-decoration: none;
+}
+
+#content      
+{
+	background-color: white;
+	text-align: left;
+	visibility: visible;
+	color: black;
+	border-radius: 10px;
+	padding: 10px;
+	margin: 10px auto;
+	width: 980px;
+}
+
+#content table tr td{
+	padding: 5px;
+}
+	
+#content a, #content a:visited {
+	color: #06f;
+	text-decoration: none;
+}
+	
+.bodytext {
+	font-size: 14px
+}
+
+.headline {
+	font-weight: bold;
+	font-size: 24px
+}
+
+#footer 
+	{
+	color: #06f;
+	font-size: 11px;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	text-align: center;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: 20px;
+	visibility: visible;
+	display: block
+	}
+
+a:link, a:visited 
+	{
+	color: white;
+	text-decoration: none
+	}
+
+a:hover 
+	{
+	color: #06f;
+	text-decoration: none
+	}
+
+#random_info {
+	color: #444;
+}
+
+.strike {
+	text-decoration: line-through;
+}
+
+.strong {
+	font-size: normal;
+	font-weight: bold;
+}
+
+.large-strong {
+	font-weight: bold;
+	font-size: large;
+}
+
+.xl-strong {
+	font-size: xx-large;
+	font-weight: bold;
+}
+
+.small-narrow {
+	font-weight: normal;
+	font-size: small;
+}
+
+.subtitle {
+	font-weight: normal;
+	font-size: small;
+}
+
+#top-nav {
+	text-align: center;
+}
+
+#top-nav ul {
+	width: 1000px;
+}
+
+#top-nav ul li {
+	display: inline;
+}
+
+#top-nav ul li:hover{
+	color: white;
+	background: #800;
+}
+
+#top-nav ul li  a:hover{
+	color: white;
+	text-decoration: underline;
+	background: black;
+}
+
+.menu{
+	background: #600;
+	padding: 5px 0px;
+	float: left;
+	width: 166px;
+}
+
+.menu-wide {
+	width: 170px;
+}
+
+ul#menu {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+#content p {
+	font-size: small;
+}
+
+.info-top {
+	font-size: large;
+	margin-bottom: 10px;
+}
+
+.both {
+	clear: both;
+}
+
+.video {
+	text-align: center;
+	margin-bottom: 15px auto;
+}
+
+.letter {
+	margin-top: 20px;
+}
+
+#people-menu {
+	float: right;
+	width: 300px;
+	border-radius: 10px;
+	border: 1px solid black;
+	padding: 10px;
+}
