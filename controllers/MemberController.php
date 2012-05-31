@@ -1,6 +1,6 @@
 <?php
-require_once '../lib/db.php';
-require_once '../models/member.php';
+require_once dirname(__FILE__).'/../lib/db.php';
+require_once dirname(__FILE__).'/../models/member.php';
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -61,6 +61,19 @@ class MemberController {
         }
         return $members;
     }
+    
+    public function get_section($section) {
+        $members = Array();
+        $q = "select * from members where instrument = '$section'";
+        $s = mysql_query($q, ConnectDB()) or die ("MysqlError:: ".mysql_error());
+        while($result = mysql_fetch_array($s, MYSQL_BOTH)) {
+            $member = new member();
+            $member->setMember($result["id"],$result["first_name"],$result["last_name"],$result["instrument"],$result["isPrimary"]);
+            $members[] = $member;
+        }
+        return $members;        
+    }
+    
 }
 
 ?>

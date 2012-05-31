@@ -52,6 +52,10 @@ class MusicController {
         }
         return $tunes;
     }
+    
+    public function get_section($section) {
+        
+    }
 }
 
 ?>

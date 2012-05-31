@@ -1,6 +1,7 @@
 <?php
 
-require_once '../lib/db.php';
+require_once dirname(__FILE__).'/../lib/db.php';
+require_once dirname(__FILE__).'/../models/member.php';
 
 /*
  * To change this template, choose Tools | Templates
