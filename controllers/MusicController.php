@@ -1,5 +1,6 @@
 <?php
-
+require_once dirname(__FILE__).'/../lib/db.php';
+require_once dirname(__FILE__).'/../models/music.php';
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -53,8 +54,16 @@ class MusicController {
         return $tunes;
     }
     
-    public function get_section($section) {
-        
+    public function get_section($inFolio) {
+        $tunes = Array();
+        $q = "select * from music where inFolio=1";
+        $s = mysql_query($q, ConnectDB()) or die ("MysqlError:: ".mysql_error());
+        while($result = mysql_fetch_array($s, MYSQL_BOTH)) {
+            $tune = new music();
+            $tune->setMusic($result["id"],$result["name"],$result["composers"],$result["inFolio"],$result["link"]);
+            $tunes[] = $tune;
+        }
+        return $tunes;        
     }
 }
 

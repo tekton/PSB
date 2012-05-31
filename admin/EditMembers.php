@@ -148,7 +148,7 @@ class EditMembers {
 
 echo admin_header("Memebers");
     echo "<div id='container'>";
-        echo "<div id='top'>Member Function for the PSB</div>";
+        echo "<div id='top'>Member Function for the <a href='../'>PSB</a></div>";
         $members = new EditMembers();
         echo left_nav();
         echo "<div id='main-window'>";
