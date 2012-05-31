@@ -41,11 +41,13 @@ class MemberController {
         $member->isPrimary = $_POST["isPrimary"];
         $member->email = $_POST["email"];
         debug_object($member);
-        $member->putInDB();
+        return $member->putInDB();
     }
     
     public function delete($id) {
-        
+        $member = new member();
+        $member->id = $id;
+        $member->deleteFromDB();
     }
     
     public function get_all() {

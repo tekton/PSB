@@ -30,10 +30,14 @@ class EditMembers {
             } else {
                 switch($_GET["action"]) {
                     case "new":
-                        $control->create();
+                        $id = $control->create();
+                        $member = $control->getMember($id);
+                        echo $this->show_edit_form($member);
                         break;
                     case "edit":
                         $control->edit($_GET["id"]);
+                        $member = $control->getMember($_GET["id"]);
+                        echo $this->show_edit_form($member);
                         break;
                     case "delete":
                         $control->delete($_GET["id"]);
@@ -49,6 +53,7 @@ class EditMembers {
                     break;
                 case "delete":
                     $control->delete($_GET["id"]);
+                    echo $this->deletion_view();
                     break;
                 default:
                     echo $this->newMemberInput();
@@ -102,6 +107,11 @@ class EditMembers {
         return $rtn_str;
     }
     
+    public function deletion_view() {
+        $rtn_str = "Requested person deleted...".'<script>$(function() {$( "#left-nav" ).accordion("activate" , 1);});</script>';
+        return $rtn_str;
+    }
+    
     public function show_edit_form($member) {
         debug_object($member);
         $rtn_str = "<div id=\"newMemberInput\"><form method='post' action='EditMembers.php?action=edit&id=$member->id'>";
@@ -118,7 +128,8 @@ class EditMembers {
         $rtn_str .= "<input type = \"text\" name = \"email\" value = \"$member->email\" />";
         $rtn_str .= "<input type = \"submit\" value = \"Edit Member\" />";
         
-        $rtn_str .= "</form></div>";
+        $rtn_str .= "</form></div><a href='EditMembers.php?action=delete&id=$member->id'>Delete</a>";
+        $rtn_str .= '<script>$(function() {$( "#left-nav" ).accordion("activate" , 1);});</script>';
         return $rtn_str;        
     }
     

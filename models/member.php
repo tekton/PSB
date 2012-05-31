@@ -43,7 +43,13 @@ class member {
             $q = "INSERT INTO members (`first_name`,`last_name`,`instrument`,`isPrimary`,`email`) VALUES ('".$this->first_name."','".$this->last_name."','".$this->instrument."','".$this->isPrimary."','".$this->email."')";
             debug_object($q);
             mysql_query($q, $db) or die("Database Error :: ".mysql_error());
+            return mysql_insert_id($db);
         }
+    }
+    
+    public function deleteFromDB() {
+        $q = "DELETE FROM members WHERE id='$this->id'";
+        $s = mysql_query($q, ConnectDB()) or die("Deletion error:: ".mysql_error());
     }
     
     public function updateInDB() {

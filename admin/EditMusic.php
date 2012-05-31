@@ -1,4 +1,7 @@
 <?php
+
+error_reporting(E_ALL ^ E_NOTICE);
+
 require_once '../lib/db.php';
 require_once '../models/music.php';
 require_once '../controllers/MusicController.php';
@@ -18,7 +21,7 @@ class EditMusic {
     
     public function brain() {
         
-        $control = new MemberController();
+        $control = new MusicController();
         
         if($_POST) {
             //do posty things
@@ -27,13 +30,18 @@ class EditMusic {
             } else {
                 switch($_GET["action"]) {
                     case "new":
-                        $control->create();
+                        $id = $control->create();
+                        $music = $control->getMusic($id);
+                        echo $this->show_edit_form($music);
                         break;
                     case "edit":
                         $control->edit($_GET["id"]);
+                        $music = $control->getMusic($_GET["id"]);
+                        echo $this->show_edit_form($music);
                         break;
                     case "delete":
                         $control->delete($_GET["id"]);
+                        echo "Deleted the requested entry...";
                         break;
                 }
             }
@@ -41,15 +49,16 @@ class EditMusic {
             //do get/show things!
             switch($_GET["action"]) {
                 case "edit":
-                    $member = $control->getMember($_GET["id"]);
-                    echo $this->show_edit_form($member);
+                    $music = $control->getmusic($_GET["id"]);
+                    echo $this->show_edit_form($music);
                     break;
                 case "delete":
                     $control->delete($_GET["id"]);
+                    echo "Deleted the requested entry...";
                     break;
                 default:
-                    echo $this->newMemberInput();
-                    echo $this->list_all_members($control->get_all());                        
+                    echo $this->newMusicInput();
+                    echo $this->list_all_music($control->get_all());                        
             }
         }
     }
@@ -60,37 +69,34 @@ class EditMusic {
         $rtn_str .= '<input type = "text" name = "name" value = "Name" />';
         $rtn_str .= '<input type = "text" name = "composers" value = "Composers" />';
         $rtn_str .= '<input type = "text" name = "link" value = "Link" />';
-        $rtn_str .= 'In Folio? <input type = "checkbox" name = "isPrimary" value = "1" />';
+        $rtn_str .= 'In Folio? <input type = "checkbox" name = "inFolio" value = "1" />';
         $rtn_str .= '<input type = "submit" value = "New Music" />';
         
         $rtn_str .= "</form></div>";
         return $rtn_str;
     }
     
-    public function list_all_music($music) {
+    public function list_all_music($tunes) {
         $rtn_str = "<table>
                 <tr>
                     <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Instrument</th>
-                    <th>Principal</th>
-                    <th>E-Mail</th>
+                    <th>Name</th>
+                    <th>Composers</th>
+                    <th>Link</th>
+                    <th>In Folio?</th>
                 </tr>";
-            foreach($music as $tune) {
-                debug_object($member, 10);
+            foreach($tunes as $music) {
+                debug_object($music, 10);
                 $rtn_str .="<tr>";
-                    $rtn_str .="<td><a href=\"EditMembers.php?action=edit&id=$member->id\">$member->id</a></td>";
-                    $rtn_str .="<td>$member->first_name</td>";
-                    $rtn_str .="<td>$member->last_name</td>";
-                    $rtn_str .="<td>$member->instrument</td>";
-                    if($member->isPrimary == 1) {
+                    $rtn_str .="<td><a href=\"EditMusic.php?action=edit&id=$music->id\">$music->id</a></td>";
+                    $rtn_str .="<td>$music->name</td>";
+                    $rtn_str .="<td>$music->composers</td>";
+                    $rtn_str .="<td>$music->link</td>";
+                    if($music->inFolio == 1) {
                         $rtn_str .="<td>true</td>";
                     } else {
                         $rtn_str .="<td></td>";
                     }
-                    //$rtn_str .="<td>$member->isPrimary</td>";
-                    $rtn_str .="<td>$member->email</td>";
                 $rtn_str .="</tr>";
             }
         $rtn_str .= "</table>";
@@ -99,22 +105,23 @@ class EditMusic {
     }
     
     public function show_edit_form($music) {
-        debug_object($member);
-        $rtn_str = "<div id=\"newMemberInput\"><form method='post' action='EditMembers.php?action=edit&id=$member->id'>";
+        debug_object($music);
+        $rtn_str = "<div id=\"newmusicInput\"><form method='post' action='EditMusic.php?action=edit&id=$music->id'>";
         
-        $rtn_str .= "<input type = \"text\" name = \"id\" value = \"$member->id\" readonly = \"readonly\" />";
-        $rtn_str .= "<input type = \"text\" name = \"first_name\" value = \"$member->first_name\" />";
-        $rtn_str .= "<input type = \"text\" name = \"last_name\" value = \"$member->last_name\" />";
-        $rtn_str .= "<input type = \"text\" name = \"instrument\" value = \"$member->instrument\" />";
-        $checked = "";    
-        if($member->isPrimary == "1") {
+        $rtn_str .= "<input type = \"text\" name = \"id\" value = \"$music->id\" readonly = \"readonly\" />";
+        $rtn_str .= "<input type = \"text\" name = \"name\" value = \"$music->name\" />";
+        $rtn_str .= "<input type = \"text\" name = \"composers\" value = \"$music->composers\" />";
+        $rtn_str .= "<input type = \"text\" name = \"link\" value = \"$music->link\" />";
+        $checked = "";
+        if($music->inFolio == "1") {
                 $checked = 'checked = "checked"';
             }
-        $rtn_str .= "Is Principal? <input type = \"checkbox\" name = \"isPrimary\" value = \"1\" $checked />";
-        $rtn_str .= "<input type = \"text\" name = \"email\" value = \"$member->email\" />";
-        $rtn_str .= "<input type = \"submit\" value = \"Edit Member\" />";
+        $rtn_str .= "In Folio? <input type = \"checkbox\" name = \"inFolio\" value = \"1\" $checked />";
+        $rtn_str .= "<input type = \"submit\" value = \"Edit music\" />";
         
-        $rtn_str .= "</form></div>";
+        $rtn_str .= "</form>
+            <a href='EditMusic.php?action=delete&id=$music->id'>Delete</a>
+        </div>";
         return $rtn_str;        
     }
     
